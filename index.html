@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIAPV-SIPDUS | Sistema de Parque Vehicular</title>
+
+    <!-- Bootstrap 5 CSS para la estructura responsive -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Leaflet CSS para el mapa interactivo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- FontAwesome para la iconografía institucional -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Estilos personalizados (Colores Institucionales Guinda/Dorado y tipografías) -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-light">
+
+    <!-- 1. ENCABEZADO INSTITUCIONAL -->
+    <header class="inst-header navbar navbar-expand-lg">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+            <!-- Logos oficiales de la dependencia -->
+            <div class="header-brand d-flex align-items-center gap-3">
+                <img src="./assets/img/logos/logo-gobierno.svg" alt="Gobierno del Estado" class="logo-gob">
+                <div class="brand-divider"></div>
+                <img src="./assets/img/logos/logo-sipdus.svg" alt="SIPDUS" class="logo-sipdus">
+            </div>
+            <!-- Identificación del sistema -->
+            <div class="system-title text-end d-none d-md-block">
+                <h1 class="m-0 h5 text-white">SIAPV-SIPDUS</h1>
+                <small class="text-white-50">Parque Vehicular Institucional</small>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. MENÚ DE NAVEGACIÓN PRINCIPAL -->
+    <nav class="inst-nav navbar navbar-expand-md py-2 shadow-sm">
+        <div class="container-fluid px-4">
+            <button class="navbar-toggler btn btn-sm border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <i class="fa-solid fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="nav-inicio"><i
+                                class="fa-solid fa-house me-2"></i>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-consulta"><i class="fa-solid fa-car me-2"></i>Consulta de
+                            Unidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-direcciones"><i
+                                class="fa-solid fa-sitemap me-2"></i>Direcciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-mapa"><i
+                                class="fa-solid fa-map-location-dot me-2"></i>Mapa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-estadisticas"><i
+                                class="fa-solid fa-chart-pie me-2"></i>Estadísticas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. CONTENEDOR PRINCIPAL DE LA PLATAFORMA -->
+    <main class="container-fluid px-4 py-4">
+
+        <!-- SECCIÓN A: BUSCADOR PRINCIPAL (El componente más importante del sistema) -->
+        <section class="search-section mb-4">
+            <div class="card border-0 shadow-sm rounded-3">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-3"><i class="fa-solid fa-magnifying-glass me-2 text-muted"></i>Buscador de Parque
+                        Vehicular</h2>
+                    <div class="input-group input-group-lg shadow-sm rounded-2 overflow-hidden">
+                        <span class="input-group-text bg-white border-end-0 text-muted"><i
+                                class="fa-solid fa-search"></i></span>
+                        <input type="text" id="main-search-input" class="form-control border-start-0 py-3 text-dark"
+                            placeholder="Buscar por Inventario (INV), Placas, Marca, Modelo, Serie, Resguardante...">
+                    </div>
+                    <div class="form-text mt-2 text-muted">
+                        * Las búsquedas se realizan en tiempo real. Escriba para filtrar los datos instantáneamente.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN B: TARJETAS DE ESTADÍSTICAS RÁPIDAS -->
+        <section class="stats-grid row g-3 mb-4" id="stats-container">
+            <!-- Cargando datos... (Este contenido se generará dinámicamente mediante JS) -->
+            <div class="col-12 text-center text-muted my-3 py-2">
+                <i class="fa-solid fa-circle-notch fa-spin me-2"></i>Cargando estadísticas del parque vehicular...
+            </div>
+        </section>
+
+        <!-- SECCIÓN C: LAYOUT DINÁMICO (Resultados del buscador, mapas y gráficas) -->
+        <div class="row g-4">
+
+            <!-- Bloque Izquierdo: Últimos registros o resultados de búsqueda -->
+            <div class="col-12 col-xl-8">
+                <div class="card border-0 shadow-sm rounded-3 h-100">
+                    <div
+                        class="card-header bg-white border-0 py-3 px-4 d-flex justify-content-between align-items-center border-bottom">
+                        <h3 class="card-title h6 m-0 fw-bold text-muted"><i
+                                class="fa-solid fa-list-check me-2"></i>Unidades del Inventario</h3>
+                        <span class="badge rounded-pill bg-dark py-2 px-3" id="units-count">0 registros</span>
+                    </div>
+                    <div class="card-body p-4" id="units-list-container">
+                        <!-- Aquí Renderer.js pintará las tarjetas de cada unidad -->
+                        <div class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-car-side fa-3x mb-3 text-white-50"></i>
+                            <p class="m-0">Iniciando consulta de inventario institucional...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloque Derecho: Mapa Interactivo y accesos rápidos -->
+            <div class="col-12 col-xl-4 d-flex flex-column gap-4">
+
+                <!-- Tarjeta del Mapa -->
+                <div class="card border-0 shadow-sm rounded-3">
+                    <div class="card-header bg-white border-0 py-3 px-4 border-bottom">
+                        <h3 class="card-title h6 m-0 fw-bold text-muted"><i class="fa-solid fa-map me-2"></i>Ubicación
+                            de Patios y Direcciones</h3>
+                    </div>
+                    <div class="card-body p-0 position-relative">
+                        <!-- Contenedor donde se dibuja el mapa de Leaflet -->
+                        <div id="leaflet-map" style="height: 350px; width: 100%;" class="rounded-bottom-3"></div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Distribución Rápida (Gráfica miniatura) -->
+                <div class="card border-0 shadow-sm rounded-3">
+                    <div class="card-header bg-white border-0 py-3 px-4 border-bottom">
+                        <h3 class="card-title h6 m-0 fw-bold text-muted"><i
+                                class="fa-solid fa-chart-simple me-2"></i>Distribución de Unidades</h3>
+                    </div>
+                    <div class="card-body p-4" style="height: 250px;">
+                        <canvas id="mini-chart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- 4. PIE DE PÁGINA INSTITUCIONAL -->
+    <footer class="inst-footer mt-5 py-4">
+        <div
+            class="container-fluid px-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div class="footer-logo d-flex align-items-center gap-2 text-white-50">
+                <span>Gobierno del Estado de Hidalgo | SIPDUS</span>
+            </div>
+            <div class="footer-meta text-center text-md-end text-white-50">
+                <small>&copy; 2026. Todos los derechos reservados. Dirección de Informática.</small>
+                <br>
+                <small class="text-warning">Uso Exclusivo Interno y Oficial</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIBRERÍAS DE RENDERIZADO EXTERNAS -->
+    <!-- Bootstrap 5 Bundle (incluye Popper para dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS para mapas -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- INICIO DE LA APLICACIÓN MODULAR -->
+    <!-- El atributo type="module" le permite al navegador saber que usaremos código modular de JavaScript -->
+    <script type="module" src="./js/app.js"></script>
+</body>
+
+</html>
