@@ -26,13 +26,13 @@
             <!-- Logos oficiales de la dependencia -->
             <div class="header-brand d-flex align-items-center gap-3">
                 <!-- 
-                  NOTA DE COMPATIBILIDAD WEB:
-                  Para que funcione en GitHub Pages, el archivo físico en su carpeta debe llamarse 
-                  exactamente 'logo-gobierno.svg' y la ruta escrita aquí debe incluir el '.svg' [1.1.7].
+                  NOTA: Si el logotipo se muestra roto, verifique si en su carpeta de Windows 
+                  se llama 'logo-gobierno.svg' o 'log-gobierno.svg' y cambie el nombre del archivo en su disco
+                  para que coincida exactamente con la ruta aquí escrita [1.1.7].
                 -->
-                <img src="./assets/img/logos/logo-gobierno.svg" alt="Gobierno del Estado" class="logo-gob" onerror="this.style.display='none'">
+                <img src="./assets/img/logos/logo-gobierno.svg" alt="Gobierno del Estado" class="logo-gob">
                 <div class="brand-divider"></div>
-                <img src="./assets/img/logos/logo-sipdus.svg" alt="SIPDUS" class="logo-sipdus" onerror="this.style.display='none'">
+                <img src="./assets/img/logos/logo-sipdus.svg" alt="SIPDUS" class="logo-sipdus">
             </div>
             
             <!-- Identificación del sistema -->
@@ -108,7 +108,10 @@
                             <a href="#" class="btn btn-sm btn-outline-dark" id="link-ver-todas">Ver todas</a>
                         </div>
                         <div class="card-body p-4" id="inicio-units-container">
-                            <!-- Aquí Renderer.js pintará los primeros 4 vehículos del inventario -->
+                            <div class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-circle-notch fa-spin fa-2x mb-2 text-dark"></i>
+                                <p class="m-0">Esperando datos del inventario...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,7 +125,6 @@
                             <h4 class="h6 text-muted fw-bold mb-3">
                                 <i class="fa-solid fa-map-location-dot me-2"></i>Ubicación Institucional
                             </h4>
-                            <!-- Mapa miniatura de referencia -->
                             <div id="preview-map" style="height: 200px; width: 100%;" class="rounded bg-light"></div>
                         </div>
                     </div>
@@ -171,7 +173,10 @@
                     <span class="badge rounded-pill bg-dark py-2 px-3" id="units-count">0 registros</span>
                 </div>
                 <div class="card-body p-4" id="units-list-container">
-                    <!-- Las tarjetas de cada vehículo o maquinaria se inyectarán aquí -->
+                    <div class="text-center py-5 text-muted">
+                        <i class="fa-solid fa-circle-notch fa-spin fa-2x mb-2 text-dark"></i>
+                        <p class="m-0">Cargando base de datos del buscador...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,7 +198,11 @@
                             </tr>
                         </thead>
                         <tbody id="direcciones-table-body">
-                            <!-- Los datos se estructurarán y cargarán de forma dinámica desde direcciones.json -->
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-muted">
+                                    <i class="fa-solid fa-circle-notch fa-spin me-2"></i>Esperando listado de direcciones...
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -250,7 +259,7 @@
                 <span>Gobierno del Estado de Hidalgo | SIPDUS</span>
             </div>
             <div class="footer-meta text-center text-md-end text-white-50">
-                <small>&copy; 2026. Todos los derechos reservados. Dirección de Informática.</small>
+                <small>&copy; 2027. Todos los derechos reservados. SIPDUS.</small>
                 <br>
                 <small class="text-warning">Uso Interno de Consulta e Inventario Oficial</small>
             </div>
@@ -258,17 +267,11 @@
     </footer>
 
     <!-- LIBRERÍAS DE RENDERIZADO EXTERNAS (CDNs oficiales) -->
-    <!-- Bootstrap 5 Bundle (contiene popper.js para menús desplegables) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Leaflet JS para inicialización de mapas interactivos -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <!-- Chart.js para renderizado de gráficas estadísticas -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- ARRANQUE DE LA APLICACIÓN MODULAR -->
-    <!-- El tipo "module" habilita el uso de imports/exports asíncronos nativos en el navegador -->
     <script type="module" src="./js/app.js"></script>
 </body>
 </html>
