@@ -1,0 +1,224 @@
+/**
+ * @file styles.css
+ * @description Estilos visuales del sistema SIAPV-SIPDUS.
+ * 
+ * Implementa la paleta de colores institucional gubernamental (Guinda y Dorado),
+ * garantizando la accesibilidad visual (WCAG AA) y un diseño moderno y minimalista.
+ */
+
+/* 1. VARIABLES GLOBALES DE COLOR Y TIPOGRAFÍA */
+:root {
+    /* Paleta Oficial Institucional */
+    --gob-guinda-oscuro: #621132;
+    /* Color identitario principal (Morena / Gobierno) */
+    --gob-guinda-claro: #9D2449;
+    /* Para botones activos, llamadas a la acción y estados */
+    --gob-dorado-oscuro: #BC955C;
+    /* Acentos primarios de diseño y bordes de realce */
+    --gob-dorado-claro: #D4C19C;
+    /* Detalles de fondo o líneas de división sutiles */
+
+    /* Paleta Neutra para Legibilidad (Accesibilidad AA) */
+    --neutral-fondo: #F4F6F6;
+    /* Fondo de la aplicación (Gris claro limpio) */
+    --neutral-blanco: #FFFFFF;
+    /* Fondos de tarjetas y contenedores */
+    --neutral-texto-oscuro: #212529;
+    /* Texto principal (Gris casi negro para evitar fatiga) */
+    --neutral-texto-mutado: #6C757D;
+    /* Subtítulos o descripciones secundarias */
+
+    /* Semántica de Estados (Desaturados para evitar estridencia) */
+    --estado-positivo: #198754;
+    /* Verde: Unidades activas */
+    --estado-alerta: #DC3545;
+    /* Rojo: Bajas o errores */
+    --estado-advertencia: #FFC107;
+    /* Amarillo: Mantenimiento o advertencia */
+}
+
+/* 2. AJUSTES GENERALES */
+body {
+    background-color: var(--neutral-fondo) !important;
+    color: var(--neutral-texto-oscuro);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 3. ENCABEZADO INSTITUCIONAL */
+.inst-header {
+    background-color: var(--gob-guinda-oscuro);
+    border-bottom: 3px solid var(--gob-dorado-oscuro);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.logo-gob {
+    height: 48px;
+    width: auto;
+}
+
+.logo-sipdus {
+    height: 38px;
+    width: auto;
+}
+
+.brand-divider {
+    width: 1px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 4. MENÚ DE NAVEGACIÓN PRINCIPAL */
+.inst-nav {
+    background-color: #4E122C;
+    /* Guinda muy oscuro para el menú */
+}
+
+.inst-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 16px !important;
+    border-radius: 4px;
+    transition: all 0.25s ease;
+}
+
+.inst-nav .nav-link:hover {
+    color: var(--neutral-blanco) !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.inst-nav .nav-link.active {
+    color: var(--neutral-blanco) !important;
+    background-color: var(--gob-guinda-claro) !important;
+    box-shadow: inset 0 -2px 0 var(--gob-dorado-oscuro);
+}
+
+/* 5. TARJETAS MODERNAS (CARDS) */
+.card {
+    border-radius: 8px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto sutil al pasar el cursor por encima */
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 6. BUSCADOR PRINCIPAL */
+#main-search-input {
+    border: 1px solid #E0E0E0;
+    font-size: 1.1rem;
+    color: var(--neutral-texto-oscuro);
+}
+
+/* Estado de enfoque (Focus) del buscador */
+#main-search-input:focus {
+    border-color: var(--gob-guinda-claro);
+    box-shadow: 0 0 0 0.25rem rgba(157, 36, 73, 0.15);
+    outline: none;
+}
+
+.input-group-text {
+    border: 1px solid #E0E0E0;
+}
+
+/* 7. TARJETAS DE ESTADÍSTICAS RÁPIDAS (DASHBOARD) */
+.stat-card-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--neutral-texto-mutado);
+    font-weight: 600;
+}
+
+.stat-card-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gob-guinda-oscuro);
+}
+
+/* 8. DISEÑO DE LA FICHA TÉCNICA DE UNIDAD */
+.unit-card {
+    border-left: 4px solid var(--gob-guinda-claro);
+}
+
+.unit-card.inactive {
+    border-left-color: var(--gob-dorado-oscuro);
+}
+
+.unit-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Etiquetas de estado */
+.badge-activo {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: var(--estado-positivo);
+}
+
+.badge-mantenimiento {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #b08200;
+    /* Tono de amarillo más oscuro para accesibilidad de lectura */
+}
+
+.badge-baja {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--estado-alerta);
+}
+
+/* Detalles de características en miniatura */
+.spec-label {
+    font-size: 0.75rem;
+    color: var(--neutral-texto-mutado);
+    text-transform: uppercase;
+    margin-bottom: 1px;
+}
+
+.spec-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--neutral-texto-oscuro);
+}
+
+/* Imagen de vehículo en la tarjeta */
+.unit-img-container {
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: #E9ECEF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unit-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.unit-card:hover .unit-img {
+    transform: scale(1.05);
+    /* Efecto zoom muy sutil en la foto */
+}
+
+/* 9. MAPA INTERACTIVO (LEAFLET) */
+#leaflet-map {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: #E9ECEF;
+}
+
+/* 10. PIE DE PÁGINA (FOOTER) */
+.inst-footer {
+    background-color: #1F1D1D;
+    /* Tono de gris institucional osc
