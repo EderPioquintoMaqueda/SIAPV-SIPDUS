@@ -1,0 +1,10 @@
+{
+  "total_units": 0,
+  "by_status": {},
+  "by_type": {
+    "vehicle": 0,
+    "machinery": 0,
+    "unknown": 0
+  },
+  "by_directorate": {}
+}
